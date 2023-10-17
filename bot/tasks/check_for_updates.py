@@ -36,8 +36,8 @@ class CheckForUpdatesTask(commands.Cog):
       
       if video:
         preview_url = video['previewUrl']
-        if not preview_url: return
-        embed.set_image(url=preview_url)
+        if preview_url: 
+          embed.set_image(url=preview_url)
 
       await channel.send(embed=embed)
       hamal.set_last_message_id_sent(last_item['_id'])
