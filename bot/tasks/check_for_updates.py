@@ -12,7 +12,7 @@ class CheckForUpdatesTask(commands.Cog):
   async def check_for_updates(self):
     hamal = self.bot.get_hamal_api()
     if not hamal.has_news(): return
-    print("Newer news found!")
+    print("Spreading the news!")
     for channel_id in self.bot.get_config().get_channels():
       channel = self.bot.get_channel(channel_id)
       if not channel: continue
@@ -35,9 +35,9 @@ class CheckForUpdatesTask(commands.Cog):
       video = hamal.get_element_by_type(last_item, "video")
       
       if video:
-        preview_url = video['value']['previewUrl']
+        preview_url = video['previewUrl']
         if not preview_url: return
-        embed.set_image(preview_url)
+        embed.set_image(url=preview_url)
 
       await channel.send(embed=embed)
       hamal.set_last_message_id_sent(last_item['_id'])

@@ -3,9 +3,16 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+def check_for_environment_vars(variables: list):
+  for variable in variables:
+    if not os.environ.get(variable):
+      raise EnvironmentError(f"Environment variable {variable} was not set!")
+
 class HamalBotConfig():
-  CHANNELS_PATH = os.getenv("CHANNELS_PATH")
   TOKEN = os.getenv('DISCORD_TOKEN')
+  CHANNELS_PATH = os.path.join("data", "channels.json")
+
+  check_for_environment_vars(["DISCORD_TOKEN"])
 
   def __init__(self):
     atexit.register(self.__save_channels)
@@ -38,3 +45,4 @@ class HamalBotConfig():
 
     with open(HamalBotConfig.CHANNELS_PATH, "w") as channels_file:
       json.dump(self.__text_channels, channels_file)
+  
