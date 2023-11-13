@@ -37,7 +37,10 @@ class HamalBotConfig():
       self.__text_channels = json.load(channels_file)
 
   def __save_channels(self):
-    if not self.__text_channels: return
+    print("Saving text channels...")
+    if not self.__text_channels: 
+      print("No text channels found returning...")
+      return
 
     parent_folder = os.path.dirname(HamalBotConfig.CHANNELS_PATH)
     if not os.path.exists(parent_folder):
@@ -45,4 +48,5 @@ class HamalBotConfig():
 
     with open(HamalBotConfig.CHANNELS_PATH, "w") as channels_file:
       json.dump(self.__text_channels, channels_file)
-  
+
+    print("Saved text channels to config successfully!")
